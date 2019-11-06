@@ -1,6 +1,7 @@
 #folders
 .idea
 out
+target
 
 #files
 *.iml
