@@ -1,0 +1,21 @@
+SOLID
+
+S: Single Responsibility Principle (Принцип єдиної відповідальності).
+O: Open-Closed Principle (Принцип відкритосі-закритості).
+L: Liskov Substitution Principle (Принцип подстановки Барбары Лисков).
+I: Interface Segregation Principle (Принцип разделения интерфейса).
+D: Dependency Inversion Principle (Принцип инверсии зависимостей).
+
+SOLID
+SRP (Single-Responsibility Principle)
+OCP (Open-Closed Principle)
+LSP (Liskov-Substitution Principle)
+DIP (Dependency inversion Principle)
+
+    SRP (Single-Responsibility Principle)
+Кожен об'єк повинен виконувати лишень одну дію.
+    OCP (Open-Closed Principle)
+
+    LSP (Liskov-Substitution Principle)
+
+    DIP (Dependency inversion Principle)
