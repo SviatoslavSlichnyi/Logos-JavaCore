@@ -8,9 +8,11 @@ public class MyLinkedList implements MyList {
     private int size;
 
 
-    //Node in linked list which has to contain two information
-    //the first ("data") store data
-    //the second ("next") store reference to the next node in linked list
+    /**
+     * Node in linked list which has to contain two information
+     *         "data" for storing data
+     *         references (connections) between objects
+     */
     private static class Node {
 
         private String data;
@@ -66,11 +68,11 @@ public class MyLinkedList implements MyList {
 
         if(isEmpty()) {
 
-            addElementToBegin(node);
+            addFirst(node);
 
         } else {
 
-            addElementToEnd(node);
+            addLast(node);
 
         }
 
@@ -79,14 +81,14 @@ public class MyLinkedList implements MyList {
         return true;
     }
 
-    private void addElementToBegin(Node node) {
+    private void addFirst(Node node) {
 
         first = node;
         last = node;
 
     }
 
-    private void addElementToEnd(Node node) {
+    private void addLast(Node node) {
 
         node.setPrevious(last);
         last.setNext(node);
@@ -184,59 +186,76 @@ public class MyLinkedList implements MyList {
     }
 
     public String remove(int index) {
-        //check: if the list is empty
+
         if(isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
-        //check: if passed index is in possible range
+
         if(isOutOfRange(index)) {
             throw  new IndexOutOfBoundsException();
         }
 
-        //when the only one element in list has to be removed
-        if(index == 0 && first == last) {
-            first = null;
-            last  = null;
+        String element = null;
 
-            size = 0;
-        }
+        //remove the only one element
+        if(size == 1) {
 
-        String element;
-
-        //when it is needed to remove from list the first element
-        if(index == 0) {
             element = first.getData();
-            Node next = first.getNext();
-            first.setNext(null);
-            first.setPrevious(null);
-            first = next;
-            first.setPrevious(null);
 
-            size--;
-            return element;//everything is done, than go out
+            clear();
+
+        }
+        //remove first element
+        else if(index == 0) {
+
+            element = first.getData();
+
+            removeFirst();
+
+        }
+        //remove the last element
+        else if(index == (size-1) ) {
+
+            element = last.getData();
+
+            removeLast();
+
+        }
+        else {
+
+            Node node = findNode(index);
+
+            element = node.getData();
+
+            removeMiddle(node);
+
         }
 
+        if(element == null) {
+            throw new RuntimeException("data was not gotten");
+        }
 
-
-        //two pointers are needed for having the previous node
-        // when the current is wanted
-        Node node = findNode(index);
-
-        element = node.getData();
-        //if it happened that element is not the first
-        //it's is going on simple search node by node
-        //which means that the element will be removed
-        //so size surly will be smaller by one
         size--;
+        return element;
+    }
 
-        //when the current element which has to be removed is the last el. in the list
-        if(last == node) {
-            Node previous = last.getPrevious();
-            last.setPrevious(null);
-            last = previous;
-            last.setNext(null);
+    private void removeFirst() {
 
-            return element;
+
+        Node next = first.getNext();
+        first.setNext(null);
+        first.setPrevious(null);
+        first = next;
+        first.setPrevious(null);
+
+    }
+
+    private void removeMiddle(Node node) {
+
+        if(node == first || node == last) {
+
+            throw new RuntimeException("executed not correct method");
+
         }
 
         //changing the previous node's "next" reference to current's next reference
@@ -249,8 +268,15 @@ public class MyLinkedList implements MyList {
 
         previous.setNext(next);
         next.setPrevious(previous);
+    }
 
-        return element;
+    private void removeLast() {
+
+        Node previous = last.getPrevious();
+        last.setPrevious(null);
+        last = previous;
+        last.setNext(null);
+
     }
 
     public void clear() {
