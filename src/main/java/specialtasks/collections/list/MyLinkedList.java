@@ -53,158 +53,144 @@ public class MyLinkedList implements MyList {
         return size;
     }
 
+    public boolean isEmpty() {
+
+        return first == null && last == null && size == 0;
+
+    }
+
     public boolean add(int element) {
+
         Node node = new Node();
         node.setData(element);
-        size++;
 
-        //when the list is empty
-        if(first == null) {
-            first = node;
-            last = node;
-        } else {//when we have just add to end of the list
-            node.setPrevious(last);
-            last.setNext(node);
-            last = node;
+        if(isEmpty()) {
+
+            addElementToBegin(node);
+
+        } else {
+
+            addElementToEnd(node);
+
         }
+
+        size++;
 
         return true;
     }
 
+    private void addElementToBegin(Node node) {
+
+        first = node;
+        last = node;
+
+    }
+
+    private void addElementToEnd(Node node) {
+
+        node.setPrevious(last);
+        last.setNext(node);
+        last = node;
+
+    }
+
     public void add(int index, int element) {
+
+        //simple addition to the end of list
+        if(index == size) {
+
+            add(element);
+            return;
+
+        }
+
         //check: if passed index is in possible range
-        if(index < 0 || size <= index) {
-            throw  new RuntimeException("index points to not exist element");
+        if(isOutOfRange(index)) {
+            throw  new IndexOutOfBoundsException();
         }
 
-        //create another one Node for going through the list
-        Node next;
-        size++;
-
-        //find the best way to find the element
-        int middle = size / 2;
-        //when the element is at the first half of list
-        if(index <= middle) {
-            //begin with the first element
-            next = first;
-
-            //searching the element which is under the index
-            for (int i = 0; i != index ; i++) {
-                next = next.getNext();
-            }
-        }
-        //when the element is at the second half of list
-        else {
-            //begin with the first element
-            //and go to back
-            next = last;
-
-            //searching the element which is under the index
-            for (int i = size-1; i != index ; i--) {
-                next = next.getPrevious();
-            }
-
-        }
-
-        Node previous = next.getPrevious();
         Node node = new Node();
         node.setData(element);
+
+
+        if(index == 0) {
+
+            insertElementAtBegin(node);
+
+        }
+        else {
+
+            insertElementInMiddle(index, node);
+
+        }
+
+        size++;
+
+    }
+
+    private void insertElementAtBegin(Node node) {
+
+        node.setPrevious(null);
+        node.setNext(first);
+
+        first = node;
+
+    }
+
+    private void insertElementInMiddle(int index, Node node) {
+
+        //create another one Node for going through the list
+        Node next = findNode(index);
+
+        Node previous = next.getPrevious();
+
 
         //insert a new node to the list
         previous.setNext(node);
         node.setNext(next);
 
-        next.setPrevious(node);
         node.setPrevious(previous);
+        next.setPrevious(node);
 
     }
 
     public int get(int index) {
+
         //check: if passed index is in possible range
-        if(index < 0 || size <= index) {
-            throw  new RuntimeException("index points to not exist element");
+        if(isOutOfRange(index)) {
+            throw new IndexOutOfBoundsException();
         }
 
-        //create another one Node for going through the list
-        Node node;
+        Node node = findNode(index);
 
-        //find the best way to find the element
-        int middle = size / 2;
-        //when the element is at the first half of list
-        if(index <= middle) {
-            //begin with the first element
-            node = first;
-
-            //searching the element which is under the index
-            for (int i = 0; i != index ; i++) {
-                node = node.getNext();
-            }
-        }
-        //when the element is at the second half of list
-        else {
-            //begin with the first element
-            //and go to back
-            node = last;
-
-            //searching the element which is under the index
-            for (int i = size-1; i != index ; i--) {
-                node = node.getPrevious();
-            }
-
-        }
-
-        //return information which that node stores
         return node.getData();
+
     }
 
     public int set(int index, int element) {
         //check: if passed index is in possible range
-        if(index < 0 || size <= index) {
-            throw  new RuntimeException("index points to not exist element");
+        if(isOutOfRange(index)) {
+            throw  new IndexOutOfBoundsException();
         }
 
-        //create another one Node for going through the list
-        Node node;
+        Node node = findNode(index);
 
-        //find the best way to find the element
-        int middle = size / 2;
-        //when the element is at the first half of list
-        if(index <= middle) {
-            //begin with the first element
-            node = first;
-
-            //searching the element which is under the index
-            for (int i = 0; i != index ; i++) {
-                node = node.getNext();
-            }
-        }
-        //when the element is at the second half of list
-        else {
-            //begin with the first element
-            //and go to back
-            node = last;
-
-            //searching the element which is under the index
-            for (int i = size-1; i != index ; i--) {
-                node = node.getPrevious();
-            }
-
-        }
+        int previousValue = node.getData();
 
         node.setData(element);
 
         //return information which that node stores
-        return node.getData();
+        return previousValue;
     }
 
     public int remove(int index) {
         //check: if the list is empty
-        if(size == 0 || first == null || last == null) {
-            throw new RuntimeException("The is empty.");
+        if(isEmpty()) {
+            throw new IndexOutOfBoundsException();
         }
         //check: if passed index is in possible range
-        if(index < 0 || size <= index) {
-            throw  new RuntimeException("index points to not exist element.");
+        if(isOutOfRange(index)) {
+            throw  new IndexOutOfBoundsException();
         }
 
         //when the only one element in list has to be removed
@@ -220,8 +206,12 @@ public class MyLinkedList implements MyList {
         //when it is needed to remove from list the first element
         if(index == 0) {
             element = first.getData();
-            first.setNext(first.getNext());
+            Node next = first.getNext();
+            first.setNext(null);
             first.setPrevious(null);
+            first = next;
+            first.setPrevious(null);
+
             size--;
             return element;//everything is done, than go out
         }
@@ -230,33 +220,7 @@ public class MyLinkedList implements MyList {
 
         //two pointers are needed for having the previous node
         // when the current is wanted
-        Node node = first;
-
-        //find the best way to find the element
-        int middle = size / 2;
-        //when the element is at the first half of list
-        if(index <= middle) {
-            //begin with the first element
-            node = first;
-
-            //searching the element which is under the index
-            for (int i = 0; i != index ; i++) {
-                node = node.getNext();
-            }
-        }
-        //when the element is at the second half of list
-        else {
-            //begin with the first element
-            //and go to back
-            node = last;
-
-            //searching the element which is under the index
-            for (int i = size-1; i != index ; i--) {
-                node = node.getPrevious();
-            }
-
-        }
-
+        Node node = findNode(index);
 
         element = node.getData();
         //if it happened that element is not the first
@@ -290,11 +254,13 @@ public class MyLinkedList implements MyList {
     }
 
     public void clear() {
+
         //two pointer for deleting references between nodes
         Node forward, backward;
 
         //do cleaning from both sides
         while(size != 0) {
+
             forward = first.getNext();
             first.setNext(null);
             first = forward;
@@ -304,8 +270,63 @@ public class MyLinkedList implements MyList {
             last = backward;
 
             size--;
+
         }
 
+    }
+
+    private Node findNode(int index) {
+
+        if(isOutOfRange(index)) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node node;
+
+        //find the best way to find the element
+        int middle = size / 2;
+
+        //when the element is at the first half of list
+        if(index <= middle) {
+            node = startSearchFromBegin(index);
+        }
+
+        //when the element is at the second half of list
+        else {
+            node = startSearchFromEnd(index);
+        }
+
+        return node;
+    }
+
+    //check: if passed index is in possible range
+    private boolean isOutOfRange(int index) {
+        return index < 0 || size <= index;
+    }
+
+    //searching the element which is at the first part of list
+    private Node startSearchFromBegin(int index) {
+
+        Node node = first;
+
+        for (int i = 0; i != index ; i++) {
+            node = node.getNext();
+        }
+
+        return node;
+    }
+
+    //searching the element which is at the second part of list
+    private Node startSearchFromEnd(int index) {
+
+        Node node = last;
+
+        //searching the element which is under the index
+        for (int i = size-1; i != index ; i--) {
+            node = node.getPrevious();
+        }
+
+        return node;
     }
 
 }
