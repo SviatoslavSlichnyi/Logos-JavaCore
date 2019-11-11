@@ -10,8 +10,8 @@ public class MyLinkedList implements MyList {
 
     /**
      * Node in linked list which has to contain two information
-     *         "data" for storing data
-     *         references (connections) between objects
+     * "data" for storing data
+     * references (connections) between objects
      */
     private static class Node {
 
@@ -19,7 +19,9 @@ public class MyLinkedList implements MyList {
         private Node previous;
         private Node next;
 
-        public Node() {}
+        public Node() {
+        }
+
         public Node(String data, Node previous, Node next) {
             this.data = data;
             this.previous = previous;
@@ -66,7 +68,7 @@ public class MyLinkedList implements MyList {
         Node node = new Node();
         node.setData(element);
 
-        if(isEmpty()) {
+        if (isEmpty()) {
 
             addFirst(node);
 
@@ -99,7 +101,7 @@ public class MyLinkedList implements MyList {
     public void add(int index, String element) {
 
         //simple addition to the end of list
-        if(index == size) {
+        if (index == size) {
 
             add(element);
             return;
@@ -107,20 +109,19 @@ public class MyLinkedList implements MyList {
         }
 
         //check: if passed index is in possible range
-        if(isOutOfRange(index)) {
-            throw  new IndexOutOfBoundsException();
+        if (isOutOfRange(index)) {
+            throw new IndexOutOfBoundsException();
         }
 
         Node node = new Node();
         node.setData(element);
 
 
-        if(index == 0) {
+        if (index == 0) {
 
             insertElementAtBegin(node);
 
-        }
-        else {
+        } else {
 
             insertElementInMiddle(index, node);
 
@@ -159,7 +160,7 @@ public class MyLinkedList implements MyList {
     public String get(int index) {
 
         //check: if passed index is in possible range
-        if(isOutOfRange(index)) {
+        if (isOutOfRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -171,8 +172,8 @@ public class MyLinkedList implements MyList {
 
     public String set(int index, String element) {
         //check: if passed index is in possible range
-        if(isOutOfRange(index)) {
-            throw  new IndexOutOfBoundsException();
+        if (isOutOfRange(index)) {
+            throw new IndexOutOfBoundsException();
         }
 
         Node node = findNode(index);
@@ -187,18 +188,18 @@ public class MyLinkedList implements MyList {
 
     public String remove(int index) {
 
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
 
-        if(isOutOfRange(index)) {
-            throw  new IndexOutOfBoundsException();
+        if (isOutOfRange(index)) {
+            throw new IndexOutOfBoundsException();
         }
 
         String element = null;
 
         //remove the only one element
-        if(size == 1) {
+        if (size == 1) {
 
             element = first.getData();
 
@@ -206,7 +207,7 @@ public class MyLinkedList implements MyList {
 
         }
         //remove first element
-        else if(index == 0) {
+        else if (index == 0) {
 
             element = first.getData();
 
@@ -214,14 +215,13 @@ public class MyLinkedList implements MyList {
 
         }
         //remove the last element
-        else if(index == (size-1) ) {
+        else if (index == (size - 1)) {
 
             element = last.getData();
 
             removeLast();
 
-        }
-        else {
+        } else {
 
             Node node = findNode(index);
 
@@ -231,7 +231,7 @@ public class MyLinkedList implements MyList {
 
         }
 
-        if(element == null) {
+        if (element == null) {
             throw new RuntimeException("data was not gotten");
         }
 
@@ -252,7 +252,7 @@ public class MyLinkedList implements MyList {
 
     private void removeMiddle(Node node) {
 
-        if(node == first || node == last) {
+        if (node == first || node == last) {
 
             throw new RuntimeException("executed not correct method");
 
@@ -279,13 +279,48 @@ public class MyLinkedList implements MyList {
 
     }
 
+    public boolean remove(String element) {
+
+        Node node = findNode(element);
+
+        //if node were not found
+        if (node == null) {
+
+            return false;
+
+        }
+
+        removeMiddle(node);
+
+        return true;
+    }
+
+    public boolean contains(String element) {
+
+        //pointers for the begin and the end of list
+        Node forward = first;
+        Node backward = last;
+
+        //search element in list
+        for (int i = 0, n = size / 2; i <= n; i++) {
+            if (forward.getData().equals(element)) {
+                return true;
+            }
+            if (backward.getData().equals(element)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void clear() {
 
         //two pointer for deleting references between nodes
         Node forward, backward;
 
         //do cleaning from both sides
-        while(size != 0) {
+        while (size != 0) {
 
             forward = first.getNext();
             first.setNext(null);
@@ -303,7 +338,7 @@ public class MyLinkedList implements MyList {
 
     private Node findNode(int index) {
 
-        if(isOutOfRange(index)) {
+        if (isOutOfRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -313,7 +348,7 @@ public class MyLinkedList implements MyList {
         int middle = size / 2;
 
         //when the element is at the first half of list
-        if(index <= middle) {
+        if (index <= middle) {
             node = startSearchFromBegin(index);
         }
 
@@ -323,6 +358,26 @@ public class MyLinkedList implements MyList {
         }
 
         return node;
+    }
+
+    private Node findNode(String element) {
+
+        //pointers for the begin and the end of list
+        Node forward = first;
+        Node backward = last;
+
+        //search element in list
+        for (int i = 0, n = size / 2; i <= n; i++) {
+            if (forward.getData().equals(element)) {
+                return forward;
+            }
+            if (backward.getData().equals(element)) {
+                return backward;
+            }
+        }
+
+        return null;
+
     }
 
     //check: if passed index is in possible range
@@ -335,7 +390,7 @@ public class MyLinkedList implements MyList {
 
         Node node = first;
 
-        for (int i = 0; i != index ; i++) {
+        for (int i = 0; i != index; i++) {
             node = node.getNext();
         }
 
@@ -348,7 +403,7 @@ public class MyLinkedList implements MyList {
         Node node = last;
 
         //searching the element which is under the index
-        for (int i = size-1; i != index ; i--) {
+        for (int i = size - 1; i != index; i--) {
             node = node.getPrevious();
         }
 
