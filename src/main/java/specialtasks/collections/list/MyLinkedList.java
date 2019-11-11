@@ -13,22 +13,22 @@ public class MyLinkedList implements MyList {
     //the second ("next") store reference to the next node in linked list
     private static class Node {
 
-        private int data;
+        private String data;
         private Node previous;
         private Node next;
 
         public Node() {}
-        public Node(int data, Node previous, Node next) {
+        public Node(String data, Node previous, Node next) {
             this.data = data;
             this.previous = previous;
             this.next = next;
         }
 
-        public int getData() {
+        public String getData() {
             return data;
         }
 
-        public void setData(int data) {
+        public void setData(String data) {
             this.data = data;
         }
 
@@ -59,7 +59,7 @@ public class MyLinkedList implements MyList {
 
     }
 
-    public boolean add(int element) {
+    public boolean add(String element) {
 
         Node node = new Node();
         node.setData(element);
@@ -94,7 +94,7 @@ public class MyLinkedList implements MyList {
 
     }
 
-    public void add(int index, int element) {
+    public void add(int index, String element) {
 
         //simple addition to the end of list
         if(index == size) {
@@ -154,7 +154,7 @@ public class MyLinkedList implements MyList {
 
     }
 
-    public int get(int index) {
+    public String get(int index) {
 
         //check: if passed index is in possible range
         if(isOutOfRange(index)) {
@@ -167,7 +167,7 @@ public class MyLinkedList implements MyList {
 
     }
 
-    public int set(int index, int element) {
+    public String set(int index, String element) {
         //check: if passed index is in possible range
         if(isOutOfRange(index)) {
             throw  new IndexOutOfBoundsException();
@@ -175,7 +175,7 @@ public class MyLinkedList implements MyList {
 
         Node node = findNode(index);
 
-        int previousValue = node.getData();
+        String previousValue = node.getData();
 
         node.setData(element);
 
@@ -183,7 +183,7 @@ public class MyLinkedList implements MyList {
         return previousValue;
     }
 
-    public int remove(int index) {
+    public String remove(int index) {
         //check: if the list is empty
         if(isEmpty()) {
             throw new IndexOutOfBoundsException();
@@ -201,7 +201,7 @@ public class MyLinkedList implements MyList {
             size = 0;
         }
 
-        int element;
+        String element;
 
         //when it is needed to remove from list the first element
         if(index == 0) {

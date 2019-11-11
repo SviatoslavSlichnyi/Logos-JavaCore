@@ -3,11 +3,11 @@ package specialtasks.collections.list;
 public interface MyList {
     int size();
 
-    boolean add(int element);
-    void add(int index, int element);
-    int get(int index);
-    int set(int index, int element);
-    int remove(int index);
+    boolean add(String element);
+    void add(int index, String element);
+    String get(int index);
+    String set(int index, String element);
+    String remove(int index);
     void clear();
 
 }
