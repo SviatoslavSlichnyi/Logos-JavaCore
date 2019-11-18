@@ -1,7 +1,7 @@
-package homework.ls_08_Enums_Scanner.task1;
+package homework.ls_09_Exceptions.task1_Enums;
 
-import homework.ls_08_Enums_Scanner.task1.year.Months;
-import homework.ls_08_Enums_Scanner.task1.year.Seasons;
+import homework.ls_09_Exceptions.task1_Enums.year.Months;
+import homework.ls_09_Exceptions.task1_Enums.year.Seasons;
 
 import java.util.Scanner;
 
@@ -60,7 +60,7 @@ public class Main {
     }
 
     //Перевірити чи є такий місяць (місяць вводимо з консолі, передбачити, щоб регістр букв був неважливим )
-    public static Months parseToMonth(String text) {
+    public static Months parseToMonth(String text) throws WrongInputConsoleParametersException {
 
         Months inputtedMonth = null;
 
@@ -68,8 +68,7 @@ public class Main {
             inputtedMonth = Months.valueOf(text);
             System.out.println(text + " were found.");
         } catch (Exception e) {
-            System.err.println(text + " are not exist in list of constants of Months.");
-            e.printStackTrace();
+            throw new WrongInputConsoleParametersException(text + " were not found in list of items of enum Months");
         }
 
         System.out.println();

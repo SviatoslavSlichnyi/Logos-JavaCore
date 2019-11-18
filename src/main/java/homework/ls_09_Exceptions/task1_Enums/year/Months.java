@@ -1,4 +1,4 @@
-package homework.ls_08_Enums_Scanner.task1.year;
+package homework.ls_09_Exceptions.task1_Enums.year;
 
 public enum Months {
 
