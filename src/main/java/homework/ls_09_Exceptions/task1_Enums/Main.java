@@ -42,18 +42,9 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.print("Write month: ");
-
-        String text = null;
-
-        if(in.hasNext()) {
-            text = in.next().toUpperCase();
-        }
+        String text = in.next().toUpperCase();
 
         in.close();
-
-        if(text == null) {
-            throw new NullPointerException();
-        }
 
         return text;
 
@@ -65,7 +56,7 @@ public class Main {
         Months inputtedMonth = null;
 
         try {
-            inputtedMonth = Months.valueOf(text);
+            inputtedMonth = Months.valueOf(text.toUpperCase());
             System.out.println(text + " were found.");
         } catch (Exception e) {
             throw new WrongInputConsoleParametersException(text + " were not found in list of items of enum Months");
