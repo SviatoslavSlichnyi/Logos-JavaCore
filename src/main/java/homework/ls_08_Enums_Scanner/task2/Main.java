@@ -16,17 +16,9 @@ public class Main {
 
         System.out.print("Number: ");
 
-        String line = null;
-        if(in.hasNextLine()) {
-            line = in.nextLine();
-        }
+        String line = in.nextLine();
 
         in.close();
-
-
-        if(line == null) {
-            throw new NullPointerException();
-        }
 
 
         if(!isOnlyDigitNumber(line)) {

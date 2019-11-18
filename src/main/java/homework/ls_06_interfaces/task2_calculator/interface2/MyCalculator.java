@@ -1,12 +1,12 @@
-package homework.ls_06_interfaces.task2.interface2;
+package homework.ls_06_interfaces.task2_calculator.interface2;
 
 
-import homework.ls_06_interfaces.task2.interface1.Numberable;
+import homework.ls_06_interfaces.task2_calculator.interface1.Numberable;
 
 public class MyCalculator implements Numberable {
 
     @Override
-    public int div(int a, int b) {
+    public double div(double a, double b) {
 
         if(b == 0) {
             throw new ArithmeticException("divide by zero");
@@ -16,17 +16,17 @@ public class MyCalculator implements Numberable {
     }
 
     @Override
-    public int sub(int a, int b) {
+    public double sub(double a, double b) {
         return a - b;
     }
 
     @Override
-    public int mult(int a, int b) {
+    public double mult(double a, double b) {
         return a * b;
     }
 
     @Override
-    public int add(int a, int b) {
+    public double add(double a, double b) {
         return a + b;
     }
 }

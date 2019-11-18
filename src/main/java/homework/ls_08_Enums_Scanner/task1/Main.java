@@ -67,9 +67,9 @@ public class Main {
         try {
             inputtedMonth = Months.valueOf(text);
             System.out.println(text + " were found.");
-        } catch (IllegalArgumentException e) {
-            System.out.println(text + " are not exist in list of constants of Months.");
-            System.exit(404);
+        } catch (Exception e) {
+            System.err.println(text + " are not exist in list of constants of Months.");
+            e.printStackTrace();
         }
 
         System.out.println();
