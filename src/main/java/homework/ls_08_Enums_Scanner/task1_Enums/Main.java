@@ -42,18 +42,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.print("Write month: ");
-
-        String text = null;
-
-        if(in.hasNext()) {
-            text = in.next().toUpperCase();
-        }
-
-        in.close();
-
-        if(text == null) {
-            throw new NullPointerException();
-        }
+        String text = in.next();
 
         return text;
 
@@ -65,7 +54,7 @@ public class Main {
         Months inputtedMonth = null;
 
         try {
-            inputtedMonth = Months.valueOf(text);
+            inputtedMonth = Months.valueOf(text.toUpperCase());
             System.out.println(text + " were found.");
         } catch (Exception e) {
             System.err.println(text + " are not exist in list of constants of Months.");
