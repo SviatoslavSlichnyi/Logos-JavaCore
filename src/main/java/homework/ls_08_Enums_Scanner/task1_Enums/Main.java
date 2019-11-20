@@ -37,7 +37,7 @@ public class Main {
 
     }
 
-    public static String readText() {
+    private static String readText() {
 
         Scanner in = new Scanner(System.in);
 
@@ -49,7 +49,7 @@ public class Main {
     }
 
     //Перевірити чи є такий місяць (місяць вводимо з консолі, передбачити, щоб регістр букв був неважливим )
-    public static Months parseToMonth(String text) {
+    private static Months parseToMonth(String text) {
 
         Months inputtedMonth = null;
 
@@ -67,7 +67,7 @@ public class Main {
     }
 
     //Вивести всі місяці з такою ж порою року
-    public static void printSameSeasonsAs(Months month) {
+    private static void printSameSeasonsAs(Months month) {
         System.out.println("Months list in the same season:");
 
         Seasons currentSeason = month.getSeasons();
@@ -82,7 +82,7 @@ public class Main {
     }
 
     //Вивести всі місяці які мають таку саму кількість днів
-    public static void printSameAmountOfDaysAs(Months month) {
+    private static void printSameAmountOfDaysAs(Months month) {
         System.out.println("Months list which has the same amount of days:");
 
         int numOfDays = month.getDays();
@@ -97,7 +97,7 @@ public class Main {
     }
 
     //Вивести на екран всі місяці які мають меншу кількість днів
-    public static void printMonthsWithLessDaysAs(Months month) {
+    private static void printMonthsWithLessDaysAs(Months month) {
         System.out.println("Months list which has less days:");
 
         int numOfDays = month.getDays();
@@ -112,7 +112,7 @@ public class Main {
     }
 
     //Вивести на екран всі місяці які мають більшу кількість днів
-    public static void printMonthsWithMoreDaysAs(Months month) {
+    private static void printMonthsWithMoreDaysAs(Months month) {
         System.out.println("Months list which has more days:");
 
         int numOfDays = month.getDays();
@@ -127,7 +127,7 @@ public class Main {
     }
 
     //Вивести на екран наступну пору року
-    public static void printPreviousSeasonTo(Months month) {
+    private static void printPreviousSeasonTo(Months month) {
         //Вивести на екран попередню пору року
         System.out.print("The previous season is ");
 
@@ -139,7 +139,7 @@ public class Main {
     }
 
     //Вивести на екран наступну пору року
-    public static void printNextSeasonTo(Months month) {
+    private static void printNextSeasonTo(Months month) {
         System.out.print("The next season is ");
 
         int currentSeasonPositionInArray = month.getSeasons().ordinal();
@@ -149,7 +149,7 @@ public class Main {
     }
 
     //Вивести на екран чи введений з консолі місяць має парну кількість днів
-    public static void printHasEvenAmountOfDays(Months month) {
+    private static void printHasEvenAmountOfDays(Months month) {
         if(isEven(month.getDays())) {
             System.out.println(month + " has even amount of days");
         } else {
@@ -158,7 +158,7 @@ public class Main {
     }
 
     //Вивести на екран всі місяці які мають парну кількість днів
-    public static void printEvenMonths() {
+    private static void printEvenMonths() {
         System.out.println("Months with even amount of day:");
 
         for(Months month: Months.values()) {
@@ -171,7 +171,7 @@ public class Main {
     }
 
     //Вивести на екран всі місяці які мають непарну кількість днів
-    public static void printOddMonths() {
+    private static void printOddMonths() {
         System.out.println("Months with odd amount of day:");
 
         for(Months month: Months.values()) {
@@ -183,7 +183,7 @@ public class Main {
         System.out.println();
     }
 
-    public static boolean isEven(int number) {
+    private static boolean isEven(int number) {
         return (number & 1) == 0;
     }
 

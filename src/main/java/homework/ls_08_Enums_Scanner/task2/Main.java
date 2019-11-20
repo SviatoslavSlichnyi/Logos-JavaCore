@@ -20,11 +20,9 @@ public class Main {
 
         in.close();
 
-
         if(!isOnlyDigitNumber(line)) {
             throw new RuntimeException("Incorrect input");
         }
-
 
         int number = Integer.parseInt(line);
 
@@ -36,11 +34,11 @@ public class Main {
 
     }
 
-    public static boolean isOnlyDigitNumber(String line) {
+    private static boolean isOnlyDigitNumber(String line) {
         return line.matches("\\d+");
     }
 
-    public static boolean isEven(int number) {
+    private static boolean isEven(int number) {
         return (number & 1) == 0;
     }
 

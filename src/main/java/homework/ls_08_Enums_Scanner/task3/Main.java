@@ -24,32 +24,19 @@ public class Main {
 
     }
 
-    public static int readNumber() {
-
+    private static int readNumber() {
         Scanner in = new Scanner(System.in);
 
-        String line = null;
-
-        if(in.hasNextLine()) {
-            line = in.nextLine();
-        }
-
-
-        if(line == null) {
-            throw new NullPointerException();
-        }
-
+        String line = in.nextLine();
 
         if(!isOnlyDigitNumber(line)) {
             throw new RuntimeException("Incorrect input");
         }
 
-
         return Integer.parseInt(line);
-
     }
 
-    public static boolean isOnlyDigitNumber(String line) {
+    private static boolean isOnlyDigitNumber(String line) {
         return line.matches("\\d+");
     }
 
