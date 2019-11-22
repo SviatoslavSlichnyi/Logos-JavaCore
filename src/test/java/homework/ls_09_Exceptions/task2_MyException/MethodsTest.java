@@ -22,19 +22,19 @@ class MethodsTest {
 
         @Test
         @DisplayName("IllegalArgumentException")
-        void testAddWithExc() {
+        void add_TooLowValues_ExceptionThrown() {
             assertThrows(IllegalArgumentException.class, () -> methods.add(Integer.MIN_VALUE, Integer.MIN_VALUE));
         }
 
         @Test
         @DisplayName("MyException")
-        void testAddWithMyExc() {
+        void add_TooLargeValues_ExceptionThrown() {
             assertThrows(MyException.class, () -> methods.add(Double.MAX_VALUE, Double.MAX_VALUE));
         }
 
         @Test
         @DisplayName("without exception")
-        void testAddWithoutExc() {
+        void add_AddingZeros_Success() {
 
             try {
 
@@ -57,13 +57,13 @@ class MethodsTest {
 
         @Test
         @DisplayName("ArithmeticException")
-        void testSubWithExc() {
+        void sub_ZeroSubtractSomeValue_ExceptionThrown() {
             assertThrows(ArithmeticException.class, () -> methods.sub(0, Double.MAX_VALUE));
         }
 
         @Test
         @DisplayName("without exception")
-        void testSubWithoutExc() {
+        void sub_SomeValueSubtractZero_Success() {
             double expected = Double.MAX_VALUE;
             double actual = methods.sub(Double.MAX_VALUE, 0);
 
@@ -78,13 +78,13 @@ class MethodsTest {
 
         @Test
         @DisplayName("ArithmeticException")
-        void testMultWithExc() {
+        void mult_SomeValueMultiplyZero_ExceptionThrown() {
             assertThrows(ArithmeticException.class, () -> methods.mult(Double.MAX_VALUE, 0));
         }
 
         @Test
         @DisplayName("without exception")
-        void testMultWithoutExc() {
+        void mult_TwoMultiplyTwo_Success() {
             double expected = 4;
             double actual = methods.mult(2, 2);
 
@@ -99,19 +99,19 @@ class MethodsTest {
 
         @Test
         @DisplayName("IllegalAccessException")
-        void testDivWithExc() {
+        void div_ZeroDivideByZero_ExceptionThrown() {
             assertThrows(IllegalAccessException.class, () -> methods.div(0, 0));
         }
 
         @Test
         @DisplayName("division by zero")
-        void testDivByZero() {
+        void div_SomeValueDivideByZero_ExceptionThrown() {
             assertThrows(IllegalArgumentException.class, () -> methods.div(Double.MAX_VALUE, 0));
         }
 
         @Test
         @DisplayName("without exception")
-        void testDiv() {
+        void div_FourDivideTwo_Success() {
 
             try {
 
