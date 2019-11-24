@@ -46,8 +46,13 @@ public class MyArrayList implements MyList {
 
     @Override
     public void add(int index, String element) {
-        if(isOutOfPossibleRange(index)) {
+        if (isIncorrectInsertIndex(index)) {
             throw new IndexOutOfBoundsException();
+        }
+
+        if (index >= size) {
+            add(element);
+            return;
         }
 
         if (isEnoughCapacity()) {
@@ -60,6 +65,10 @@ public class MyArrayList implements MyList {
         ++size;
     }
 
+    private boolean isIncorrectInsertIndex(int index) {
+        return index < 0 || (size == 0 && index != 0);
+    }
+
     private String[] createArrayWithInsertedElement(int index, String element) {
         String[] newArray = new String[capacity];
 
@@ -70,7 +79,7 @@ public class MyArrayList implements MyList {
         newArray[index] = element;
 
         //continue to copy elements into a new array
-        int amountElementsToRead = array.length- index;
+        int amountElementsToRead = size - index;
         //read in 'array' from [index] and
         // copy into 'newArray', start by [index+1] and set [amount] of the rest element in 'array'
         System.arraycopy(array, index, newArray, index +1, amountElementsToRead);
@@ -155,11 +164,9 @@ public class MyArrayList implements MyList {
         String[] newArray = new String[size-1];
 
         System.arraycopy(array, 0, newArray, 0, index);
-        System.out.println(Arrays.toString(newArray));
 
-        int elementsToRead = array.length-index-1;
+        int elementsToRead = size-index-1;
         System.arraycopy(array, index+1, newArray, index, elementsToRead);
-        System.out.println(Arrays.toString(newArray));
 
         return newArray;
     }
