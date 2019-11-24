@@ -241,7 +241,6 @@ public class MyLinkedList implements MyList {
 
     private void removeFirst() {
 
-
         Node next = first.getNext();
         first.setNext(null);
         first.setPrevious(null);
@@ -285,13 +284,19 @@ public class MyLinkedList implements MyList {
 
         //if node were not found
         if (node == null) {
-
             return false;
-
+        }
+        else if (node == first) {
+            removeFirst();
+        }
+        else if (node == last) {
+            removeLast();
+        }
+        else {
+            removeMiddle(node);
         }
 
-        removeMiddle(node);
-
+        --size;
         return true;
     }
 
@@ -402,6 +407,9 @@ public class MyLinkedList implements MyList {
             if (backward.getData().equals(element)) {
                 return backward;
             }
+
+            forward = forward.getNext();
+            backward = backward.getPrevious();
         }
 
         return null;
