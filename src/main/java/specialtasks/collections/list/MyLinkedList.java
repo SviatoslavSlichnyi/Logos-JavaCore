@@ -314,6 +314,34 @@ public class MyLinkedList implements MyList {
         return false;
     }
 
+    @Override
+    public int indexOf(String element) {
+        Node node = first;
+
+        for (int i = 0; node != null; i++) {
+            if (node.getData().equals(element)) {
+                return i;
+            }
+            node = node.getNext();
+        }
+
+        return -1;
+    }
+
+    @Override
+    public int lastIndexOf(String element) {
+        Node node = last;
+
+        for (int i = size-1; node != null; i--) {
+            if (node.getData().equals(element)) {
+                return i;
+            }
+            node = node.getPrevious();
+        }
+
+        return -1;
+    }
+
     public void clear() {
 
         //two pointer for deleting references between nodes

@@ -14,6 +14,9 @@ public interface MyList {
 
     boolean contains(String element);
 
+    int indexOf(String element);
+    int lastIndexOf(String element);
+
     void clear();
 
 }
