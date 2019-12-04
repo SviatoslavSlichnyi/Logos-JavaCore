@@ -1,9 +1,6 @@
 package homework.ls_14_Set.mininal;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,26 +17,20 @@ public class Main {
         students.add(s3);
         students.add(s4);
 
-        printList(students);
+        print(students);
 
         Set<Student> sortedSet = new HashSet<>(students);
         System.out.println(sortedSet);
 
-        printSet(sortedSet);
+        print(sortedSet);
 
 
         students.sort(Student.comparator);
-        printList(students);
+        print(students);
 
     }
 
-    private static void printList(List<Student> students) {
-        System.out.println();
-        System.out.println(students);
-        System.out.println();
-    }
-
-    private static void printSet(Set<Student> students) {
+    private static void print(Collection<Student> students) {
         System.out.println();
         System.out.println(students);
         System.out.println();
