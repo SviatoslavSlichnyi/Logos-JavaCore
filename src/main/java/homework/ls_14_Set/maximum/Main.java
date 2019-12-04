@@ -12,13 +12,14 @@ public class Main {
 
         List<Commodity> commodities = new LinkedList<>();
 
-        System.out.print("choice: ");
-        int ch = in.nextInt();
-        Commodity commodity;
-        int index;
+
 
         while(true) {
             printMenu();
+            System.out.print("choice: ");
+            int ch = in.nextInt();
+            Commodity commodity;
+            int index;
 
             switch (ch) {
                 case 1:
