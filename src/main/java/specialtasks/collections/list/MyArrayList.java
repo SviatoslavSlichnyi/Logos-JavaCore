@@ -2,16 +2,15 @@ package specialtasks.collections.list;
 
 import java.util.Arrays;
 
-public class MyArrayList implements MyList {
+public class MyArrayList<T> implements MyList<T> {
 
     private final int DEFAULT_CAPACITY = 10;
-    private final int MAX_CAPACITY = Integer.MAX_VALUE;
     private int capacity;
-    private String[] array;
+    private Object[] array;
     private int size;
 
     public MyArrayList() {
-        array = new String[DEFAULT_CAPACITY];
+        array = new Object[DEFAULT_CAPACITY];
         capacity = DEFAULT_CAPACITY;
         size = 0;
     }
@@ -22,7 +21,7 @@ public class MyArrayList implements MyList {
             throw new IllegalArgumentException("Illegal capacity: " + size);
         }
 
-        array = new String[size];
+        array = new Object[size];
         capacity = size;
         this.size = 0;
     }
@@ -33,7 +32,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public boolean add(String element) {
+    public boolean add(T element) {
         if (isEnoughCapacity()) {
             expandCapacity();
         }
@@ -45,7 +44,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public void add(int index, String element) {
+    public void add(int index, T element) {
         if (isIncorrectInsertIndex(index)) {
             throw new IndexOutOfBoundsException();
         }
@@ -59,7 +58,7 @@ public class MyArrayList implements MyList {
             expandCapacity();
         }
 
-        String[] newArray = createArrayWithInsertedElement(index, element);
+        Object[] newArray = createArrayWithInsertedElement(index, element);
         replaceCurrentArrayIntoAnother(newArray);
 
         ++size;
@@ -69,8 +68,8 @@ public class MyArrayList implements MyList {
         return index < 0 || (size == 0 && index != 0);
     }
 
-    private String[] createArrayWithInsertedElement(int index, String element) {
-        String[] newArray = new String[capacity];
+    private Object[] createArrayWithInsertedElement(int index, T element) {
+        Object[] newArray = new Object[capacity];
 
         //copy all elements until element with index
         System.arraycopy(array, 0, newArray, 0, index);
@@ -87,7 +86,7 @@ public class MyArrayList implements MyList {
         return newArray;
     }
 
-    private void replaceCurrentArrayIntoAnother(String[] another) {
+    private void replaceCurrentArrayIntoAnother(Object[] another) {
         //clear the previous array
         clearArrayReferences();
 
@@ -106,6 +105,7 @@ public class MyArrayList implements MyList {
 
         double newCapacity = (capacity * 1.5);
 
+        int MAX_CAPACITY = Integer.MAX_VALUE;
         if (newCapacity > MAX_CAPACITY) {
             setHugeCapacity();
         } else {
@@ -120,24 +120,27 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public String set(int index, String element) {
+    public T set(int index, T element) {
         if (isOutOfPossibleRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        String previous = array[index];
+        @SuppressWarnings("unchecked")
+        T previous = (T) array[index];
         array[index] = element;
 
         return previous;
     }
 
     @Override
-    public String get(int index) {
+    public T get(int index) {
         if (isOutOfPossibleRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        return array[index];
+        @SuppressWarnings("unchecked")
+        T element = (T) array[index];
+        return element;
     }
 
     private boolean isOutOfPossibleRange(int index) {
@@ -145,14 +148,15 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public String remove(int index) {
+    public T remove(int index) {
         if (isOutOfPossibleRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        String removed = array[index];
+        @SuppressWarnings("unchecked")
+        T removed = (T) array[index];
 
-        String[] newArray = createArrayWithoutIndexedElement(index);
+        Object[] newArray = createArrayWithoutIndexedElement(index);
         replaceCurrentArrayIntoAnother(newArray);
 
         --size;
@@ -160,8 +164,8 @@ public class MyArrayList implements MyList {
         return removed;
     }
 
-    private String[] createArrayWithoutIndexedElement(int index) {
-        String[] newArray = new String[size-1];
+    private Object[] createArrayWithoutIndexedElement(int index) {
+        Object[] newArray = new Object[size-1];
 
         System.arraycopy(array, 0, newArray, 0, index);
 
@@ -172,7 +176,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public boolean remove(String element) {
+    public boolean remove(T element) {
         int index = indexOf(element);
 
         if( index != -1) {
@@ -184,7 +188,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public boolean contains(String element) {
+    public boolean contains(T element) {
         for (int i = 0; i < size; i++) {
             if (array[i].equals(element)) {
                 return true;
@@ -195,7 +199,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public int indexOf(String element) {
+    public int indexOf(T element) {
         for (int i = 0; i < size; i++) {
             if(array[i].equals(element)) {
                 return i;
@@ -206,7 +210,7 @@ public class MyArrayList implements MyList {
     }
 
     @Override
-    public int lastIndexOf(String element) {
+    public int lastIndexOf(T element) {
         for (int i = size-1; i > 0; i--) {
             if(array[i].equals(element)) {
                 return i;
@@ -223,7 +227,7 @@ public class MyArrayList implements MyList {
         capacity = DEFAULT_CAPACITY;
         size = 0;
 
-        array = new String[DEFAULT_CAPACITY];
+        array = new Object[DEFAULT_CAPACITY];
     }
 
     private void clearArrayReferences() {

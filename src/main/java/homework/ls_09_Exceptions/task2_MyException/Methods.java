@@ -40,6 +40,4 @@ public class Methods {
         return a / b;
     }
 
-
-
 }

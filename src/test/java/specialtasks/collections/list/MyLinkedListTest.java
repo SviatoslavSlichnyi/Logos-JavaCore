@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyLinkedListTest {
 
-    private MyList list;
+    private MyList<String> list;
 
     @BeforeEach
     void setUp() {
-        list = new MyLinkedList();
+        list = new MyLinkedList<>();
     }
 
     @Nested

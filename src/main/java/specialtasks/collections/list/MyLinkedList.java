@@ -1,10 +1,10 @@
 package specialtasks.collections.list;
 
-public class MyLinkedList implements MyList {
+public class MyLinkedList<T> implements MyList<T> {
 
     //pointer into the first node in list
-    private Node first;
-    private Node last;
+    private Node<T> first;
+    private Node<T> last;
     private int size;
 
 
@@ -13,42 +13,42 @@ public class MyLinkedList implements MyList {
      * "data" for storing data
      * references (connections) between objects
      */
-    private static class Node {
+    private static class Node<T> {
 
-        private String data;
-        private Node previous;
-        private Node next;
+        private T data;
+        private Node<T> previous;
+        private Node<T> next;
 
-        public Node() {
+        Node() {
         }
 
-        public Node(String data, Node previous, Node next) {
+        Node(T data, Node<T> previous, Node<T> next) {
             this.data = data;
             this.previous = previous;
             this.next = next;
         }
 
-        public String getData() {
+        public T getData() {
             return data;
         }
 
-        public void setData(String data) {
+        public void setData(T data) {
             this.data = data;
         }
 
-        public Node getPrevious() {
+        public Node<T> getPrevious() {
             return previous;
         }
 
-        public void setPrevious(Node previous) {
+        public void setPrevious(Node<T> previous) {
             this.previous = previous;
         }
 
-        public Node getNext() {
+        public Node<T> getNext() {
             return next;
         }
 
-        public void setNext(Node next) {
+        public void setNext(Node<T> next) {
             this.next = next;
         }
     }
@@ -58,54 +58,39 @@ public class MyLinkedList implements MyList {
     }
 
     public boolean isEmpty() {
-
-        return first == null && last == null && size == 0;
-
+        return size == 0;
     }
 
-    public boolean add(String element) {
-
-        Node node = new Node();
+    public boolean add(T element) {
+        Node<T> node = new Node<T>();
         node.setData(element);
 
         if (isEmpty()) {
-
             addFirst(node);
-
         } else {
-
             addLast(node);
-
         }
 
         size++;
-
         return true;
     }
 
-    private void addFirst(Node node) {
-
+    private void addFirst(Node<T> node) {
         first = node;
         last = node;
-
     }
 
-    private void addLast(Node node) {
-
+    private void addLast(Node<T> node) {
         node.setPrevious(last);
         last.setNext(node);
         last = node;
-
     }
 
-    public void add(int index, String element) {
-
+    public void add(int index, T element) {
         //simple addition to the end of list
         if (index == size) {
-
             add(element);
             return;
-
         }
 
         //check: if passed index is in possible range
@@ -113,40 +98,27 @@ public class MyLinkedList implements MyList {
             throw new IndexOutOfBoundsException();
         }
 
-        Node node = new Node();
+        Node<T> node = new Node<>();
         node.setData(element);
 
-
         if (index == 0) {
-
             insertElementAtBegin(node);
-
         } else {
-
             insertElementInMiddle(index, node);
-
         }
 
         size++;
-
     }
 
-    private void insertElementAtBegin(Node node) {
-
-        node.setPrevious(null);
+    private void insertElementAtBegin(Node<T> node) {
         node.setNext(first);
-
         first = node;
-
     }
 
-    private void insertElementInMiddle(int index, Node node) {
-
+    private void insertElementInMiddle(int index, Node<T> node) {
         //create another one Node for going through the list
-        Node next = findNode(index);
-
-        Node previous = next.getPrevious();
-
+        Node<T> next = findNode(index);
+        Node<T> previous = next.getPrevious();
 
         //insert a new node to the list
         previous.setNext(node);
@@ -154,31 +126,26 @@ public class MyLinkedList implements MyList {
 
         node.setPrevious(previous);
         next.setPrevious(node);
-
     }
 
-    public String get(int index) {
-
+    public T get(int index) {
         //check: if passed index is in possible range
         if (isOutOfRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node node = findNode(index);
-
+        Node<T> node = findNode(index);
         return node.getData();
-
     }
 
-    public String set(int index, String element) {
+    public T set(int index, T element) {
         //check: if passed index is in possible range
         if (isOutOfRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node node = findNode(index);
-
-        String previousValue = node.getData();
+        Node<T> node = findNode(index);
+        T previousValue = node.getData();
 
         node.setData(element);
 
@@ -186,8 +153,7 @@ public class MyLinkedList implements MyList {
         return previousValue;
     }
 
-    public String remove(int index) {
-
+    public T remove(int index) {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
@@ -196,39 +162,25 @@ public class MyLinkedList implements MyList {
             throw new IndexOutOfBoundsException();
         }
 
-        String element = null;
-
+        T element;
         //remove the only one element
         if (size == 1) {
-
             element = first.getData();
-
             clear();
-
         }
         //remove first element
         else if (index == 0) {
-
             element = first.getData();
-
             removeFirst();
-
         }
         //remove the last element
         else if (index == (size - 1)) {
-
             element = last.getData();
-
             removeLast();
-
         } else {
-
-            Node node = findNode(index);
-
+            Node<T> node = findNode(index);
             element = node.getData();
-
             removeMiddle(node);
-
         }
 
         if (element == null) {
@@ -240,27 +192,21 @@ public class MyLinkedList implements MyList {
     }
 
     private void removeFirst() {
-
-        Node next = first.getNext();
+        Node<T> next = first.getNext();
         first.setNext(null);
         first.setPrevious(null);
         first = next;
         first.setPrevious(null);
-
     }
 
-    private void removeMiddle(Node node) {
-
+    private void removeMiddle(Node<T> node) {
         if (node == first || node == last) {
-
             throw new RuntimeException("executed not correct method");
-
         }
-
         //changing the previous node's "next" reference to current's next reference
         //in this way the wanted element will be removed from linked list
-        Node previous = node.getPrevious();
-        Node next = node.getNext();
+        Node<T> previous = node.getPrevious();
+        Node<T> next = node.getNext();
 
         node.setPrevious(null);
         node.setNext(null);
@@ -270,17 +216,14 @@ public class MyLinkedList implements MyList {
     }
 
     private void removeLast() {
-
-        Node previous = last.getPrevious();
+        Node<T> previous = last.getPrevious();
         last.setPrevious(null);
         last = previous;
         last.setNext(null);
-
     }
 
-    public boolean remove(String element) {
-
-        Node node = findNode(element);
+    public boolean remove(T element) {
+        Node<T> node = findNode(element);
 
         //if node were not found
         if (node == null) {
@@ -300,11 +243,10 @@ public class MyLinkedList implements MyList {
         return true;
     }
 
-    public boolean contains(String element) {
-
+    public boolean contains(T element) {
         //pointers for the begin and the end of list
-        Node forward = first;
-        Node backward = last;
+        Node<T> forward = first;
+        Node<T> backward = last;
 
         //search element in list
         for (int i = 0, n = size / 2; i <= n; i++) {
@@ -320,8 +262,8 @@ public class MyLinkedList implements MyList {
     }
 
     @Override
-    public int indexOf(String element) {
-        Node node = first;
+    public int indexOf(T element) {
+        Node<T> node = first;
 
         for (int i = 0; node != null; i++) {
             if (node.getData().equals(element)) {
@@ -334,8 +276,8 @@ public class MyLinkedList implements MyList {
     }
 
     @Override
-    public int lastIndexOf(String element) {
-        Node node = last;
+    public int lastIndexOf(T element) {
+        Node<T> node = last;
 
         for (int i = size-1; node != null; i--) {
             if (node.getData().equals(element)) {
@@ -348,13 +290,11 @@ public class MyLinkedList implements MyList {
     }
 
     public void clear() {
-
         //two pointer for deleting references between nodes
-        Node forward, backward;
+        Node<T> forward, backward;
 
         //do cleaning from both sides
         while (size != 0) {
-
             forward = first.getNext();
             first.setNext(null);
             first = forward;
@@ -364,19 +304,15 @@ public class MyLinkedList implements MyList {
             last = backward;
 
             size--;
-
         }
-
     }
 
-    private Node findNode(int index) {
-
+    private Node<T> findNode(int index) {
         if (isOutOfRange(index)) {
             throw new IndexOutOfBoundsException();
         }
 
-        Node node;
-
+        Node<T> node;
         //find the best way to find the element
         int middle = size / 2;
 
@@ -384,7 +320,6 @@ public class MyLinkedList implements MyList {
         if (index <= middle) {
             node = startSearchFromBegin(index);
         }
-
         //when the element is at the second half of list
         else {
             node = startSearchFromEnd(index);
@@ -393,11 +328,10 @@ public class MyLinkedList implements MyList {
         return node;
     }
 
-    private Node findNode(String element) {
-
+    private Node<T> findNode(T element) {
         //pointers for the begin and the end of list
-        Node forward = first;
-        Node backward = last;
+        Node<T> forward = first;
+        Node<T> backward = last;
 
         //search element in list
         for (int i = 0, n = size / 2; i <= n; i++) {
@@ -413,7 +347,6 @@ public class MyLinkedList implements MyList {
         }
 
         return null;
-
     }
 
     //check: if passed index is in possible range
@@ -422,9 +355,8 @@ public class MyLinkedList implements MyList {
     }
 
     //searching the element which is at the first part of list
-    private Node startSearchFromBegin(int index) {
-
-        Node node = first;
+    private Node<T> startSearchFromBegin(int index) {
+        Node<T> node = first;
 
         for (int i = 0; i != index; i++) {
             node = node.getNext();
@@ -434,9 +366,8 @@ public class MyLinkedList implements MyList {
     }
 
     //searching the element which is at the second part of list
-    private Node startSearchFromEnd(int index) {
-
-        Node node = last;
+    private Node<T> startSearchFromEnd(int index) {
+        Node<T> node = last;
 
         //searching the element which is under the index
         for (int i = size - 1; i != index; i--) {

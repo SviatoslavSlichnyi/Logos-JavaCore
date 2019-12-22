@@ -1,21 +1,21 @@
 package specialtasks.collections.list;
 
-public interface MyList {
+public interface MyList<T> {
     int size();
 
-    boolean add(String element);
-    void add(int index, String element);
-    String set(int index, String element);
+    boolean add(T element);
+    void add(int index, T element);
+    T set(int index, T element);
 
-    String get(int index);
+    T get(int index);
 
-    String remove(int index);
-    boolean remove(String element);
+    T remove(int index);
+    boolean remove(T element);
 
-    boolean contains(String element);
+    boolean contains(T element);
 
-    int indexOf(String element);
-    int lastIndexOf(String element);
+    int indexOf(T element);
+    int lastIndexOf(T element);
 
     void clear();
 

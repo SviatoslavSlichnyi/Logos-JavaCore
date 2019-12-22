@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MethodsTest {
@@ -42,6 +44,7 @@ class MethodsTest {
                 double actual = methods.add(0, 0);
 
                 assertEquals(expected, actual);
+
 
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

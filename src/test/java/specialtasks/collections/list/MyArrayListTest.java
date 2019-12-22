@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MyArrayListTest {
 
-    private MyList list;
+    private MyList<String> list;
 
     @BeforeEach
     void setUp() {
-        list = new MyArrayList();
+        list = new MyArrayList<>();
     }
 
     @Nested
