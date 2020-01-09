@@ -1,11 +1,18 @@
 package specialtasks.collections.list;
 
-public class MyLinkedList<T> implements MyList<T> {
+import java.util.Iterator;
+
+public class MyLinkedList<T> implements MyList<T>, Iterable<T> {
 
     //pointer into the first node in list
     private Node<T> first;
     private Node<T> last;
     private int size;
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
 
 
     /**
