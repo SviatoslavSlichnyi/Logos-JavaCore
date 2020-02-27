@@ -1,0 +1,4 @@
+
+
+#show logs in graph
+git log --pretty=oneline --all --graph

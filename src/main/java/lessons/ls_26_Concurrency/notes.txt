@@ -1,0 +1,28 @@
+Executor are used for reusing existed thread with new run() method.
+
+ScheduledExecutorService are used for terminating thread start after some time.
+
+Semaphores are used for set up fixed number of thread that can be executed at the same time.
+
+CountDownLatch are used when it is needed to set up number of thread that has to be done after continue
+    do the code after method CountDownLatch.await().
+
+Exchanger is needed to send data through some threads.
+
+CyclicBarrier is used when it is needed to run a thread only when another number of threads to be waiting (await()).
+Example: when runners are ready.
+
+Phaser is needed that set up number of threads (which were passed into constructor)
+    get to point (line) phaser.arriveAndAwaitAdvance();.
+Example: car washing with worker in salon and outer worker.
+
+BlockingQueue has interesting method take() wil be on wait()
+    until another thread call method add().
+
+ThreadFactory already are written.
+
+ForkJoinPool is used when it is needed to split a task into some pieces.
+
+ThreadLocalRandom.current().nextInt() - random for concurrency.
+
+TimeUnit is used for converting into milliseconds.
