@@ -1,7 +1,5 @@
 package homework.ls_25_mehod_reference;
 
-import homework.ls_14_Set.mininal.Student;
-
 import java.util.stream.Stream;
 
 public class Main {
