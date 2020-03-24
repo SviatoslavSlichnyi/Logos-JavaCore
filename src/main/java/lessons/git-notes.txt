@@ -1,4 +1,35 @@
+#save username and password for this repository
+git config credential.helper store
+#save username and password for all repositories
+git config --global credential.helper store
+
+#to delete credential for global or local store of username and password
+#it is needed to clear the config files:
+~/.git-credentials
+~/.gitconfig
 
 
 #show logs in graph
-git log --pretty=oneline --all --graph
+git log --graph --oneline --all
+
+#git log
+git log : Показує commit history використовуючи default formatting.
+git log -n : Показує commit history використовуючи default formatting.
+git log -p : Показує full diff кожного commit.
+git log --author="" : Шукає commits за певним author.
+git log --grep="<pattern>" : Шукає commits із певним commit message що відповідає <pattern>.
+git log <since>..<until> : Шукає лише commits що трапляються між <since> та <until>.
+
+
+#git reset
+--hard : delete all files to the commit
+--soft : move delete commits without changing the files of current state
+
+
+#git commit --amend : swap the previous commit with a new one
+    --no-edit : save without editing commit
+
+#git cherry-pick : copy commit to another branch
+
+#git rebase : do rebase of commits from branch to branch; move them between each other
+
